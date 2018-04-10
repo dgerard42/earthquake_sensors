@@ -1,4 +1,4 @@
-tep pulse, usec)
+$0=10 (step pulse, usec)
 $1=255 (step idle delay, msec)
 $2=28 (step port invert mask:00011100)
 $3=2 (dir port invert mask:00000010)
