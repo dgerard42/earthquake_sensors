@@ -13,36 +13,43 @@
 #!usr/bin/python3
 import sys
 import os
+import numpy as np
 
-# def find_fastest_wave():
-#
-# def find_largest_wave():
-#
-# def make_waves():
-#
-# def make_lists():
-#
-# def make_csv():
-#
-def mkdir(filename):
-    path = os.getcwd()
-    path += "/" + filename + "_parsed"
-    os.mkdir(path)
-    print ("directory '"+path+"' was created")
+# def find_fastest_wave(waves):
+    #iterate through the waves
+# def find_largest_wave(waves):
 
-def split_file(filename):
+# def make_waves(): #make a data frame of waves with wave size, wave time, and wave acceleration
+
+def split_by_direction(eq_file): #make 3 subarrays of the displacements for each direction
+    displacements = np.array([[], [], []])
+    for line in eq_file:
+        if line[0].isdigit():
+            items = line.split()
+            displacements[direction].append(float(items[1]))
+        else:
+            if line.find("HHE") != -1:
+                direction = 0
+            else if line.find("HHN") != -1:
+                direction = 1
+            else if line.find("HHZ") != -1:
+                direction = 2
+return displacements
+
+def open_file(filename):
     try:
         eq_file = open(filename)
     except:
         return 0
-    mkdir(filename)
+    return eq_file
 
 def main():
     if (len(sys.argv) > 1):
-        filename = sys.argv[1]
-        if (split_file(filename) == 0):
+        eq_file = open_file(sys.argv[1])
+        if (eq_file == 0):
            print ("file '"+filename+"' not found")
            return 0
+        displacements = split_by_direction(eq_file)
     else:
        print ("enter the name of the earthquake data file that you wish to parse")
        return 0
