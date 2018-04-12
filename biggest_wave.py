@@ -13,7 +13,6 @@
 #!usr/bin/python3
 import sys
 import os
-import numpy as np
 
 # def find_fastest_wave(waves):
     #iterate through the waves
@@ -22,7 +21,7 @@ import numpy as np
 # def make_waves(): #make a data frame of waves with wave size, wave time, and wave acceleration
 
 def split_by_direction(eq_file): #make 3 subarrays of the displacements for each direction
-    displacements = np.array([[], [], []])
+    displacements = [[], [], []]
     for line in eq_file:
         if line[0].isdigit():
             items = line.split()
@@ -30,11 +29,11 @@ def split_by_direction(eq_file): #make 3 subarrays of the displacements for each
         else:
             if line.find("HHE") != -1:
                 direction = 0
-            else if line.find("HHN") != -1:
+            elif line.find("HHN") != -1:
                 direction = 1
-            else if line.find("HHZ") != -1:
+            elif line.find("HHZ") != -1:
                 direction = 2
-return displacements
+    return displacements
 
 def open_file(filename):
     try:
@@ -50,6 +49,7 @@ def main():
            print ("file '"+filename+"' not found")
            return 0
         displacements = split_by_direction(eq_file)
+        print (displacements)
     else:
        print ("enter the name of the earthquake data file that you wish to parse")
        return 0
