@@ -14,30 +14,41 @@
 import sys
 import os
 
-# def find_fastest_wave(waves):
+# def find_fastest_wave(wave_sets):
 
-# def find_largest_wave(waves):
+# def find_largest_wave(wave_sets):
 
-def make_waves(displacements): #make a 3d array of waves with wave size, wave time, and wave acceleration
-    new_wave = -1
+def make_waves(deltas): #make a 3d array of waves with wave size, wave time, and wave acceleration
+    new_wave = -1 # -1 == wave just started, 0 == one sign change, 1 == 2 sign changes
     time = 0.0
     size = 0.0
-    sign = (displacements[0] < 0) ? false : true #true is positive, false is negative
-    for i in range(len(displacements)):
-        time += 0.01
-        size += displacements[i]
-        if (new_wave == 2)
-            
-        elif (displacements[i] < 0 && sign == true || displacements[i] > 0 && sign == false)
-            sign = (sign == true) ? false : true
+    sign = False if (deltas[0] < 0) else True #True is positive, False is negative
+    waves = []
+    # print("len delatas =", len(deltas))
+    for i in range(len(deltas)):
+        # print("new wave val=", new_wave)
+        if (new_wave == 1):
+            # print("making new wave")
+            waves.append([[time], [size], [(size * 100 / time * 100)]]) #last num in array is avg. speed during wave in meters per second
+            time = 0.0
+            size = 0.0
+            new_wave = -1
+            # sign = False if (deltas[i] < 0) else True #True is positive, False is negative
+        elif (deltas[i] < 0 and sign == True or deltas[i] > 0 and sign == False):
+            sign = False if (sign == True) else True
             new_wave += 1
+            # print ("here")
+        time += 0.01
+        size += abs(deltas[i])
+    # print (waves)
+    return waves
 
 def split_by_direction(eq_file): #make 3 subarrays of the displacements for each direction
-    displacements = [[], [], []]
+    deltas = [[], [], []]
     for line in eq_file:
         if line[0].isdigit():
             items = line.split()
-            displacements[direction].append(float(items[1]))
+            deltas[direction].append(float(items[1]))
         else:
             if line.find("HHE") != -1:
                 direction = 0
@@ -45,7 +56,7 @@ def split_by_direction(eq_file): #make 3 subarrays of the displacements for each
                 direction = 1
             elif line.find("HHZ") != -1:
                 direction = 2
-    return displacements
+    return deltas
 
 def open_file(filename):
     try:
@@ -60,10 +71,12 @@ def main():
         if (eq_file == 0):
            print ("file '"+filename+"' not found")
            return 0
-        displacements = split_by_direction(eq_file)
-        waves = [[],[],[]]
-        for direction in displacements
-            waves[direction] = make_waves[displacements[direction]]
+        deltas = split_by_direction(eq_file)
+        # print (deltas)
+        wave_sets = []
+        for direction in range(len(deltas)):
+            wave_sets.append(make_waves(deltas[direction]))
+        print (wave_sets)
     else:
        print ("enter the name of the earthquake data file that you wish to parse")
        return 0
