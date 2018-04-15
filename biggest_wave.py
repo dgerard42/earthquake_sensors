@@ -34,10 +34,14 @@ def make_waves(deltas): #make a 3d array of waves with wave size, wave time, and
             size = 0.0
             new_wave = -1
             # sign = False if (deltas[i] < 0) else True #True is positive, False is negative
-        elif (deltas[i] < 0 and sign == True or deltas[i] > 0 and sign == False):
+        elif i < (len(deltas) - 1):
+            if deltas[i + 1] < 0 and sign == True or deltas[i + 1] > 0 and sign == False:
+                sign = False if (sign == True) else True
+                new_wave += 1
+                # print ("here")
+        elif i == len(deltas):
             sign = False if (sign == True) else True
             new_wave += 1
-            # print ("here")
         time += 0.01
         size += abs(deltas[i])
     # print (waves)
