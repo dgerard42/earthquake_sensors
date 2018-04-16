@@ -34,7 +34,7 @@ def make_waves(deltas): #make a 3d array of waves with wave size, wave time, and
         elif i == (len(deltas) - 1):
             new_wave = 1
         if (new_wave == 1):
-            waves.append([[time], [size], [(size * 100 / time * 100)]]) #last num in array is avg. speed during wave in meters per second
+            waves.append([time, size, (size * 100 / time * 100)]) #last num in array is avg. speed during wave in meters per second
             time = 0.0
             size = 0.0
             new_wave = -1
