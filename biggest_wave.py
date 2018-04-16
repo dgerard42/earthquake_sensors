@@ -24,27 +24,20 @@ def make_waves(deltas): #make a 3d array of waves with wave size, wave time, and
     size = 0.0
     sign = False if (deltas[0] < 0) else True #True is positive, False is negative
     waves = []
-    # print("len delatas =", len(deltas))
     for i in range(len(deltas)):
-        # print("new wave val=", new_wave)
+        time += 0.01
+        size += abs(deltas[i])
+        if i < (len(deltas) - 1):
+            if (deltas[i + 1] < 0 and sign == True) or (deltas[i + 1] > 0 and sign == False):
+                sign = False if (sign == True) else True
+                new_wave += 1
+        elif i == (len(deltas) - 1):
+            new_wave = 1
         if (new_wave == 1):
-            # print("making new wave")
             waves.append([[time], [size], [(size * 100 / time * 100)]]) #last num in array is avg. speed during wave in meters per second
             time = 0.0
             size = 0.0
             new_wave = -1
-            # sign = False if (deltas[i] < 0) else True #True is positive, False is negative
-        elif i < (len(deltas) - 1):
-            if deltas[i + 1] < 0 and sign == True or deltas[i + 1] > 0 and sign == False:
-                sign = False if (sign == True) else True
-                new_wave += 1
-                # print ("here")
-        elif i == len(deltas):
-            sign = False if (sign == True) else True
-            new_wave += 1
-        time += 0.01
-        size += abs(deltas[i])
-    # print (waves)
     return waves
 
 def split_by_direction(eq_file): #make 3 subarrays of the displacements for each direction

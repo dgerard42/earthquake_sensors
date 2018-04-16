@@ -54,3 +54,17 @@ Fourth after debugging:
     ]
   ]
 ]
+
+Psedocode to try to understand whats up
+>>instantiate time, size, sign, waves, and new_wave
+>>iterate through all of the displacements
+    >>if not on the last item of the list
+        >>if the displacement is less than 0 and the sign is + or if the number is positive and the sign is negative
+            >>switch the sign
+            >>add to new wave
+    >>elif last item on the list
+        >>new_wave = 1
+    >>if new wave == 1
+        >>add the wave to the array
+        >>reinit time and size
+        >>reinit new wave
